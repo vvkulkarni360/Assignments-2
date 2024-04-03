@@ -1,5 +1,6 @@
 import pytesseract
 from pdf2image import convert_from_path
+import pandas as pd
 
 # Set the path to the Tesseract executable
 pytesseract.pytesseract.tesseract_cmd = r"C:\Users\VARUN V KULKARNI\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
@@ -21,33 +22,31 @@ extracted_text = ''
 
 for i, page in enumerate(pages):
     text = pytesseract.image_to_string(page)
-    rows = text.split('\n')
-    for row in rows:
+
     # Check if start keyword is encountered
-        if start_keyword in row:
-            start_extraction = True
+    if start_keyword in text:
+        start_extraction = True
 
-        # Check if end keyword is encountered
-        if end_keyword in row:
-            end_extraction = True
+    # Check if end keyword is encountered
+    if end_keyword in text:
+        end_extraction = True
 
-        # Append text to accumulator if extraction flag is True
-        if start_extraction and not end_extraction:
-            extracted_text += row + '\n'
+    # Append text to accumulator if extraction flag is True
+    if start_extraction and not end_extraction:
+        extracted_text += text + '\n'
 
-        # Break loop if both start and end keywords are encountered
-        if start_extraction and end_extraction:
-            break
-
+    # Break loop if both start and end keywords are encountered
     if start_extraction and end_extraction:
-            break
+        break
 
-# Print the extracted text
-print(extracted_text)
+# Create a Pandas DataFrame with the extracted text
+df = pd.DataFrame({'Extracted_Text': [extracted_text]})
 
-# Save the extracted text to a file
-output_file = 'extracted_text.txt'
-with open(output_file, 'w', encoding='utf-8') as f:
-    f.write(extracted_text)
+# Print the DataFrame (optional)
+print(df)
 
-print(f'Extracted text saved to {output_file}')
+# Save the DataFrame to a CSV file
+csv_file = 'extracted_text.csv'
+df.to_csv(csv_file, index=False)
+
+print(f'DataFrame saved to {csv_file}')
