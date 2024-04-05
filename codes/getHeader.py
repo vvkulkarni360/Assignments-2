@@ -45,10 +45,8 @@ for i, page in enumerate(pages):
     if start_extraction and end_extraction:
         break
 
-# print(f"Extracted Text:\n{extracted_text}\n")  # Print extracted text for debugging
-
 # Define a regex pattern for matching the header format
-header_pattern = r'(\d{2}\.\w+\s\d{2}:\d{2}:\d{2})\s(\w+)\s(\w+\s\(\w+\))'
+header_pattern = r'(\d{2}\.\w+\s\d{2}:\d{2}:\d{2})\s(\w+)\s(\w+\s\(\w+\))\s(\w+)'
 
 # Find all lines that match the header pattern
 header_lines = re.findall(header_pattern, extracted_text)
@@ -56,7 +54,19 @@ header_lines = re.findall(header_pattern, extracted_text)
 print(f"Extracted Headers:\n{header_lines}\n")  # Print extracted headers for debugging
 
 # Create a DataFrame with the extracted headers
-df = pd.DataFrame(header_lines, columns=['Time_Date', 'Reported', 'Evaluation'])
+df = pd.DataFrame(header_lines, columns=['Time_Date', 'Reported', 'Evaluation','Findings'])
+
+# Define a regex pattern for matching the Findings format
+# findings_pattern = r'confirmed (ECG)([\w\s]+)'
+# findings_match = re.search(extracted_text)
+
+# Initialize the Findings column in the DataFrame
+# df['Findings'] = None
+
+# Check if the Findings pattern is found
+# if findings_match:
+#     findings_text = findings_match.group(1)  # Extract the Findings text
+#     df.loc[0, 'Findings'] = findings_text  # Assign the Findings text to the DataFrame
 
 # Print the DataFrame (optional)
 print(df)
@@ -67,8 +77,4 @@ df.to_csv(csv_file, index=False)
 
 print(f'Headers extracted and saved to {csv_file}')
 
-
-# \s-\s\w+\s-\s\w+\s\(\w+\)
-
-
-# , 'Confirmed_ECG', 'Findings'
+# findings_pattern,
