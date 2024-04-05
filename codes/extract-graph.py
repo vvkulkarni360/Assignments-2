@@ -17,7 +17,6 @@ def extract_ecg_from_pdf(pdf_file):
 
         # Process page image to identify and extract ECG graphs
         # Example: Identify ECG graphs based on size or pattern
-        # Replace this logic with your actual ECG image identification code
         ecg_images = identify_ecg_images(page_image)
 
         # Append identified ECG graphs to the list
@@ -83,11 +82,7 @@ def analyze_ecg_abnormalities(ecg_data):
 
     return abnormal_voltages
 
-# Example usage:
-# Assume ecg_graphs is a list of ECG data arrays extracted from PDF pages
-# Replace this with the actual ECG data from your extraction process
 
-# Generate sample ECG data for demonstration purposes
 sample_ecg_data = np.random.normal(loc=0, scale=1, size=1000)  # Normal distribution
 sample_ecg_data[300:400] += 3  # Add abnormality to the ECG data
 
@@ -98,8 +93,8 @@ abnormalities_df = analyze_ecg_abnormalities(sample_ecg_data)
 print("Detected Abnormalities:")
 print(abnormalities_df)
 
-# Plot the ECG data with abnormal points highlighted
 
+#plot
 
 plt.plot(sample_ecg_data, label='ECG Data')
 plt.scatter(abnormalities_df['Time'], abnormalities_df['Voltage'], color='red', label='Abnormalities')
@@ -113,10 +108,7 @@ plt.show()
 # Create a Pandas DataFrame with the extracted text
 df = pd.DataFrame({'abnormalities_df': [abnormalities_df]})
 
-# Print the DataFrame (optional)
-# print(df)
 
-# Save the DataFrame to a CSV file
 csv_file = 'abnormalities_df.csv'
 df.to_csv(csv_file, index=False)
 
