@@ -48,7 +48,7 @@ for i, page in enumerate(pages):
 # print(f"Extracted Text:\n{extracted_text}\n")  # Print extracted text for debugging
 
 # Define a regex pattern for matching the header format
-header_pattern = r'(\d{2}\.\w+\s\d{2}:\d{2}:\d{2})\s-\s(\w+\s\(\w+\))\s-\s(\w+)'
+header_pattern = r'(\d{2}\.\w+\s\d{2}:\d{2}:\d{2})\s(\w+)\s(\w+\s\(\w+\))'
 
 # Find all lines that match the header pattern
 header_lines = re.findall(header_pattern, extracted_text)
@@ -56,7 +56,7 @@ header_lines = re.findall(header_pattern, extracted_text)
 print(f"Extracted Headers:\n{header_lines}\n")  # Print extracted headers for debugging
 
 # Create a DataFrame with the extracted headers
-df = pd.DataFrame({'Extracted_Text_getheader': header_lines})
+df = pd.DataFrame(header_lines, columns=['Time_Date', 'Reported', 'Evaluation'])
 
 # Print the DataFrame (optional)
 print(df)
@@ -69,3 +69,6 @@ print(f'Headers extracted and saved to {csv_file}')
 
 
 # \s-\s\w+\s-\s\w+\s\(\w+\)
+
+
+# , 'Confirmed_ECG', 'Findings'
